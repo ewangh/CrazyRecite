@@ -1,0 +1,91 @@
+﻿<Window x:Class="CrazyRecite.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CrazyRecite"
+        mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
+        Title="MainWindow" Height="300" MinHeight="300" Width="400" MinWidth="400">
+    <Grid>
+        <materialDesign:Flipper HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <materialDesign:Flipper.FrontContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.RowSpan="2"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Red">
+                        <!--<Image x:Name="img_Name"  Margin="10" Stretch="Uniform"></Image>-->
+                        <TextBlock x:Name="tb_Name" TextWrapping="Wrap" Foreground="White" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+                    <Border Grid.RowSpan="2" Grid.Column="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Blue">
+                        <!--<Image x:Name="img_Code"  Margin="10" Stretch="Fill"></Image>-->
+                        <TextBlock x:Name="tb_Code" TextWrapping="Wrap" Foreground="White" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    </Border>
+                    <materialDesign:PopupBox Grid.Row="1"
+	PlacementMode="TopAndAlignLeftEdges"
+	StaysOpen="False" Margin="20 0">
+                        <StackPanel >
+                            <Button Content="Open File" Click="btn_Openfile_Click"/>
+                            <Button Content="Download File" Command="{x:Static materialDesign:Flipper.FlipCommand}"/>
+                            <Separator />
+                            <Button Content="Exit" Click="btn_Exit_Click"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                        <Button x:Name="btn_Last" Width="50" Height="50"
+	Click="btn_Last_Click"
+	Style="{StaticResource MaterialDesignFlatButton}"
+                Content="{materialDesign:PackIcon ArrowLeftBold}"/>
+
+                        <Button x:Name="btn_Play" Width="50" Height="50" Visibility="Collapsed"
+	Click="btn_Play_Click"
+	Style="{StaticResource MaterialDesignFlatButton}"
+                Content="{materialDesign:PackIcon Play}"/>
+                        <Button x:Name="btn_Pause" Width="50" Height="50" Visibility="Collapsed"
+	Click="btn_Pause_Click"
+	Style="{StaticResource MaterialDesignFlatButton}"
+                Content="{materialDesign:PackIcon Pause}"/>
+                        <Button x:Name="btn_Next" Width="50" Height="50"
+	Click="btn_Next_Click"
+	Style="{StaticResource MaterialDesignFlatButton}"
+                Content="{materialDesign:PackIcon ArrowRightBold}"/>
+                    </StackPanel>
+                    <ToggleButton x:Name="tbtn_Random" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right"
+	VerticalAlignment="Center"
+	Style="{StaticResource MaterialDesignSwitchToggleButton}"
+	ToolTip="BeRandom" Click="tbtn_Random_Click"/>
+                </Grid>
+            </materialDesign:Flipper.FrontContent>
+            <materialDesign:Flipper.BackContent>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Background="Red">
+                        <ComboBox x:Name="cmb_books" Margin="15" Foreground="White" FontSize="20">
+                        </ComboBox>
+                    </Grid>
+                    <Grid Grid.Column="1" Background="Blue">
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                Content="{materialDesign:PackIcon ExitToApp}"
+                                Padding="0" VerticalAlignment="Top"></Button>
+                        <Button Padding="0" Click="btn_Download_OnClickAsync" Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{materialDesign:PackIcon PackageDown}"></Button>
+                        <Button Padding="0" Click="btn_Upload_OnClickAsync" Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{materialDesign:PackIcon PackageUp}" VerticalAlignment="Bottom"></Button>
+                    </Grid>
+                    <TextBlock x:Name="tb_Msg" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="20 0 20 20" FontSize="15" Foreground="White"></TextBlock>
+                </Grid>
+            </materialDesign:Flipper.BackContent>
+        </materialDesign:Flipper>
+    </Grid>
+</Window>
