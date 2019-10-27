@@ -154,6 +154,12 @@
   <ItemGroup>
     <Folder Include="Utils\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CrazyReciteApi\CrazyReciteApi.csproj">
+      <Project>{17a10098-7b02-4fad-bc05-2056f05ee330}</Project>
+      <Name>CrazyReciteApi</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
