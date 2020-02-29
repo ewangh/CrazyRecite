@@ -106,15 +106,17 @@ namespace CrazyReciteApi.Controllers
         [HttpGet]
         public IHttpActionResult GetFile(string file = null)
         {
-            string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath($"/{_dic}"), file ?? "");
+            string path = "./";//文件服务器路径
 
-            if (File.Exists(path))
+            try
             {
-                var url = String.Format($"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}/{_dic}/{file}"); 
+                var url = String.Format($"{path}/{file}");
                 return this.Redirect(url);
             }
-
-            return StatusCode(HttpStatusCode.NotFound);
+            catch (Exception ex)
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
         }
 
         /// <summary>
