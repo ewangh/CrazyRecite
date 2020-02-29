@@ -16,6 +16,8 @@ namespace CrazyReciteApi
         {
             System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<CrDBContext>());
 
+            RouteTable.Routes.RouteExistingFiles = false;//不先比较路由规则
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

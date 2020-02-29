@@ -23,6 +23,7 @@ namespace CrazyReciteApi.Controllers
     public class BooksController : ApiController
     {
         private CrDBContext db = new CrDBContext();
+        private const string _dic = "Files";
 
         // GET: api/Books/GetBooks
         [HttpGet]
@@ -41,7 +42,7 @@ namespace CrazyReciteApi.Controllers
             try
             {
                 string fileName = data["bookName"].ToObject<string>();
-                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data"), fileName ?? "");
+                string path = Path.Combine(HttpContext.Current.Server.MapPath(String.Format("~/{0}", _dic)), fileName ?? "");
                 if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
                 {
                     string filename = Path.GetFileName(path);
@@ -74,7 +75,7 @@ namespace CrazyReciteApi.Controllers
         {
             try
             {
-                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/App_Data"), data ?? "");
+                string path = Path.Combine(HttpContext.Current.Server.MapPath(String.Format("~/{0}", _dic)), data ?? "");
                 if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
                 {
                     string filename = Path.GetFileName(path);
@@ -100,6 +101,23 @@ namespace CrazyReciteApi.Controllers
         }
 
         /// <summary>
+        /// 下载文件
+        /// </summary>
+        [HttpGet]
+        public IHttpActionResult GetFile(string file = null)
+        {
+            string path = Path.Combine(System.Web.Hosting.HostingEnvironment.MapPath($"/{_dic}"), file ?? "");
+
+            if (File.Exists(path))
+            {
+                var url = String.Format($"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}/{_dic}/{file}"); 
+                return this.Redirect(url);
+            }
+
+            return StatusCode(HttpStatusCode.NotFound);
+        }
+
+        /// <summary>
         /// 上传文件
         /// </summary>
         [HttpPost]
@@ -114,7 +132,7 @@ namespace CrazyReciteApi.Controllers
             HttpRequestMessage request = this.Request;
             HttpResponseMessage ret = new HttpResponseMessage();
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            string root = HttpContext.Current.Server.MapPath(String.Format("~/{0}", _dic));
             if (!Directory.Exists(root))
             {
                 Directory.CreateDirectory(root);
@@ -143,10 +161,10 @@ namespace CrazyReciteApi.Controllers
                     }
 
                     var ms = file.ReadAsStreamAsync().Result;
-                    using (var br=new BinaryReader(ms))
+                    using (var br = new BinaryReader(ms))
                     {
                         var data = br.ReadBytes((int)ms.Length);
-                        File.WriteAllBytes(destFile,data);
+                        File.WriteAllBytes(destFile, data);
                     }
                     //var newbook=new Books()
                     //{
