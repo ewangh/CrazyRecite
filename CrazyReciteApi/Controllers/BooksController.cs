@@ -97,7 +97,7 @@ namespace CrazyReciteApi.Controllers
             catch (Exception ex)
             {
             }
-            return new HttpResponseMessage(HttpStatusCode.NoContent);
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
         /// <summary>
